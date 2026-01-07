@@ -1,0 +1,24 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Testing
+coverage/
+
+# Production
+build/
+
+# Misc
+.DS_Store
+.env
+.npm
+*.log
+
+# Secrets (IMPORTANT)
+*.json
+!package.json
+!package-lock.json
+!Google/Class.json
+certs/
+OAUTH Client.txt

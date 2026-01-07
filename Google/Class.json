@@ -1,0 +1,17 @@
+{
+  "id": "3388000000022198249.RunX_Pass_v2",
+  "issuerName": "RunX",
+  "programName": "RunX Pass",
+  "programLogo": {
+    "sourceUri": {
+      "uri": "https://raw.githubusercontent.com/runxmedia/wallet/main/Logo.jpg"
+    }
+  },
+  "reviewStatus": "UNDER_REVIEW",
+  "hexBackgroundColor": "#333333",
+  "heroImage": {
+    "sourceUri": {
+      "uri": "https://raw.githubusercontent.com/runxmedia/wallet/main/Hero.jpg"
+    }
+  }
+}

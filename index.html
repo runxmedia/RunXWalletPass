@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RunX Wallet Pass</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div id="container">
+        <h1>RunX Wallet Pass</h1>
+        <p class="subtitle">
+            <strong>Step 1:</strong> Sign in with your <strong>Sunrun Account</strong> (@sunrun.com)<br>
+            <strong>Step 2:</strong> Save the pass to your <strong>Personal Google Wallet</strong> (@gmail.com)
+        </p>
+
+        <!-- Google Sign-In Configuration -->
+        <div id="g_id_onload" data-client_id="800358855932-apthd1iov6tamiri49qfnndnja98tamj.apps.googleusercontent.com"
+            data-context="signin" data-ux_mode="popup" data-callback="handleCredentialResponse" data-auto_prompt="false"
+            data-hosted_domain="sunrun.com">
+        </div>
+
+        <div class="google-btn-wrapper">
+            <div class="g_id_signin" data-type="standard" data-shape="pill" data-theme="filled_blue"
+                data-text="signin_with" data-size="large" data-logo_alignment="left">
+            </div>
+        </div>
+
+        <!-- User Profile Display (Hidden initially) -->
+        <div id="user-profile">
+            <img id="user-img" src="" alt="Profile Picture">
+            <h2 id="user-name"></h2>
+            <p id="user-email"></p>
+        </div>
+
+        <!-- Loading Indicator -->
+        <div id="loader" class="loader"></div>
+
+        <!-- Wallet Button Container -->
+        <!-- Wallet Button Container -->
+        <div id="wallet-container" class="hidden">
+            <p>Welcome, <span id="wallet-user-name"></span>!</p>
+            <div id="add-to-google-wallet-button"></div>
+            <!-- Static Apple Wallet Button Wrapper -->
+            <div id="add-to-apple-wallet-button" style="margin-top: 15px; cursor: pointer; display: inline-block;">
+                <img src="/Add-to-Apple-Wallet/Add to Apple Wallet Badges/US_UK/RGB/US-UK_Add_to_Apple_Wallet_RGB_101421.svg"
+                    alt="Add to Apple Wallet" height="40">
+            </div>
+        </div>
+        <div id="instructions">
+            <p>Once generated, click the button to add the pass to your Google Wallet.</p>
+        </div>
+    </div>
+
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
