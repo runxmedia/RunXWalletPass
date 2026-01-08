@@ -182,11 +182,37 @@ app.post('/api/create-apple-pass', async (req, res) => {
             return path.join(__dirname, 'certs', filename);
         }
 
+        const applePassDir = path.join(__dirname, 'Apple.pass');
+        const passJsonPath = path.join(applePassDir, 'pass.json');
+
+        console.log('Checking Apple Pass model at:', applePassDir);
+
+        if (!fs.existsSync(applePassDir)) {
+            console.error('CRITICAL: Apple.pass directory not found at', applePassDir);
+            // List contents of current directory to see what's there
+            console.error('Current directory contents:', fs.readdirSync(__dirname));
+        } else if (!fs.existsSync(passJsonPath)) {
+            console.error('CRITICAL: pass.json not found at', passJsonPath);
+            console.error('Apple.pass directory contents:', fs.readdirSync(applePassDir));
+        } else {
+            console.log('pass.json found.');
+        }
+
         // Paths to keys and certs - THESE MUST BE PROVIDED BY THE USER
+        const wwdrPath = resolveCertPath('wwdr.pem');
+        const signerCertPath = resolveCertPath('signerCert.pem');
+        const signerKeyPath = resolveCertPath('signerKey.pem');
+
+        console.log('Cert paths resolved:', {
+            wwdr: wwdrPath,
+            signerCert: signerCertPath,
+            signerKey: signerKeyPath
+        });
+
         const certs = {
-            wwdr: fs.readFileSync(resolveCertPath('wwdr.pem')),
-            signerCert: fs.readFileSync(resolveCertPath('signerCert.pem')),
-            signerKey: fs.readFileSync(resolveCertPath('signerKey.pem')),
+            wwdr: fs.readFileSync(wwdrPath),
+            signerCert: fs.readFileSync(signerCertPath),
+            signerKey: fs.readFileSync(signerKeyPath),
             signerKeyPassphrase: process.env.SIGNER_KEY_PASSPHRASE // Required if key is encrypted
         };
 
@@ -194,7 +220,7 @@ app.post('/api/create-apple-pass', async (req, res) => {
         // For this implementation, we will try to generate. If certs are missing, we might catch the error.
 
         const pass = await PKPass.from({
-            model: path.join(__dirname, 'Apple.pass'),
+            model: applePassDir,
             certificates: certs
         });
 
@@ -234,6 +260,10 @@ app.post('/api/create-apple-pass', async (req, res) => {
 
     } catch (error) {
         console.error('Error generating Apple Pass:', error);
+        // More detailed error logging
+        if (error.message) console.error('Error Message:', error.message);
+        if (error.stack) console.error('Error Stack:', error.stack);
+
         res.status(500).json({ success: false, error: 'Failed to generate Apple Pass. ensure certificates are configured.' });
     }
 });
