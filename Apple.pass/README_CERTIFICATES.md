@@ -32,9 +32,11 @@ To sign Apple Wallet passes, you need to obtain specific certificates from the A
 5. **Convert to PEM**:
    You will need to convert the p12 file to PEM format for the Node.js server to use it.
    ```bash
-   openssl pkcs12 -in signerCert.p12 -clcerts -nokeys -out signerCert.pem
-   openssl pkcs12 -in signerCert.p12 -nocerts -out signerKey.pem
-   ```
+   # For empty password (common default):
+   openssl pkcs12 -in signerCert.p12 -clcerts -nokeys -out signerCert.pem -legacy -passin pass:
+   openssl pkcs12 -in signerCert.p12 -nocerts -out signerKey.pem -legacy -passin pass:
+   
+   # If you set a custom password, replace 'pass:' with 'pass:yourpassword'
    *Note: If you set a password, you'll need to provide it in the server configuration.*
 
 ### 4. Download the WWDR Certificate

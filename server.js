@@ -1,4 +1,5 @@
 const express = require('express');
+require('dotenv').config();
 const { OAuth2Client } = require('google-auth-library');
 const jwt = require('jsonwebtoken');
 const fs = require('fs');
@@ -173,17 +174,17 @@ app.post('/api/create-apple-pass', async (req, res) => {
     try {
         // Paths to keys and certs - THESE MUST BE PROVIDED BY THE USER
         const certs = {
-            wwdr: path.join(__dirname, 'certs', 'wwdr.pem'),
-            signerCert: path.join(__dirname, 'certs', 'signerCert.pem'),
-            signerKey: path.join(__dirname, 'certs', 'signerKey.pem'),
-            signerKeyPassphrase: process.env.SIGNER_KEY_PASSPHRASE // Optional
+            wwdr: fs.readFileSync(path.join(__dirname, 'certs', 'wwdr.pem')),
+            signerCert: fs.readFileSync(path.join(__dirname, 'certs', 'signerCert.pem')),
+            signerKey: fs.readFileSync(path.join(__dirname, 'certs', 'signerKey.pem')),
+            signerKeyPassphrase: process.env.SIGNER_KEY_PASSPHRASE // Required if key is encrypted
         };
 
         // Check if certs exist (mock check for now, or just proceed and let it fail if missing)
         // For this implementation, we will try to generate. If certs are missing, we might catch the error.
 
         const pass = await PKPass.from({
-            model: path.join(__dirname, 'Apple', 'pass.json'),
+            model: path.join(__dirname, 'Apple.pass'),
             certificates: certs
         });
 
@@ -208,12 +209,12 @@ app.post('/api/create-apple-pass', async (req, res) => {
         });
 
         // Add images
-        pass.addBuffer('icon.png', fs.readFileSync(path.join(__dirname, 'Apple', 'icon.png')));
-        pass.addBuffer('icon@2x.png', fs.readFileSync(path.join(__dirname, 'Apple', 'icon.png'))); // Reusing for now
-        pass.addBuffer('logo.png', fs.readFileSync(path.join(__dirname, 'Apple', 'logo.png')));
-        pass.addBuffer('logo@2x.png', fs.readFileSync(path.join(__dirname, 'Apple', 'logo.png')));
-        pass.addBuffer('strip.png', fs.readFileSync(path.join(__dirname, 'Apple', 'strip.png')));
-        pass.addBuffer('strip@2x.png', fs.readFileSync(path.join(__dirname, 'Apple', 'strip.png')));
+        pass.addBuffer('icon.png', fs.readFileSync(path.join(__dirname, 'Apple.pass', 'icon.png')));
+        pass.addBuffer('icon@2x.png', fs.readFileSync(path.join(__dirname, 'Apple.pass', 'icon.png'))); // Reusing for now
+        pass.addBuffer('logo.png', fs.readFileSync(path.join(__dirname, 'Apple.pass', 'logo.png')));
+        pass.addBuffer('logo@2x.png', fs.readFileSync(path.join(__dirname, 'Apple.pass', 'logo.png')));
+        pass.addBuffer('strip.png', fs.readFileSync(path.join(__dirname, 'Apple.pass', 'strip.png')));
+        pass.addBuffer('strip@2x.png', fs.readFileSync(path.join(__dirname, 'Apple.pass', 'strip.png')));
 
         const buffer = pass.getAsBuffer();
 
