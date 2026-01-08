@@ -172,11 +172,21 @@ app.post('/api/create-apple-pass', async (req, res) => {
     }
 
     try {
+        // Helper to resolve cert paths
+        function resolveCertPath(filename) {
+            const secretPath = path.join('/etc/secrets', filename);
+            if (fs.existsSync(secretPath)) {
+                return secretPath;
+            }
+            // Fallback to local certs directory
+            return path.join(__dirname, 'certs', filename);
+        }
+
         // Paths to keys and certs - THESE MUST BE PROVIDED BY THE USER
         const certs = {
-            wwdr: fs.readFileSync(path.join(__dirname, 'certs', 'wwdr.pem')),
-            signerCert: fs.readFileSync(path.join(__dirname, 'certs', 'signerCert.pem')),
-            signerKey: fs.readFileSync(path.join(__dirname, 'certs', 'signerKey.pem')),
+            wwdr: fs.readFileSync(resolveCertPath('wwdr.pem')),
+            signerCert: fs.readFileSync(resolveCertPath('signerCert.pem')),
+            signerKey: fs.readFileSync(resolveCertPath('signerKey.pem')),
             signerKeyPassphrase: process.env.SIGNER_KEY_PASSPHRASE // Required if key is encrypted
         };
 
