@@ -2,28 +2,16 @@
     "formatVersion": 1,
     "passTypeIdentifier": "pass.com.runx.wallet",
     "serialNumber": "12345678",
-    "teamIdentifier": "TEAMID123",
+    "teamIdentifier": "729GR8TSHE",
     "organizationName": "RunX",
     "description": "RunX Pass",
     "foregroundColor": "rgb(255, 255, 255)",
-    "backgroundColor": "rgb(51, 51, 51)",
+    "backgroundColor": "rgb(102, 102, 102)",
     "labelColor": "rgb(255, 255, 255)",
     "storeCard": {
         "headerFields": [],
-        "primaryFields": [
-            {
-                "key": "name",
-                "label": "Name",
-                "value": "Jane Doe"
-            }
-        ],
-        "secondaryFields": [
-            {
-                "key": "email",
-                "label": "Account",
-                "value": "person@sunrun.com"
-            }
-        ],
+        "primaryFields": [],
+        "secondaryFields": [],
         "auxiliaryFields": [],
         "backFields": []
     },

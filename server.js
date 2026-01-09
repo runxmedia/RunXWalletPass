@@ -224,6 +224,10 @@ app.post('/api/create-apple-pass', async (req, res) => {
             certificates: certs
         });
 
+        // Generate a random serial number based on user name and timestamp
+        const serialNumber = crypto.createHash('sha1').update(user.name + Date.now().toString()).digest('hex');
+        pass.serialNumber = serialNumber;
+
         pass.primaryFields.forEach(f => {
             if (f.key === 'name') f.value = user.name;
         });
@@ -245,12 +249,9 @@ app.post('/api/create-apple-pass', async (req, res) => {
         });
 
         // Add images
-        pass.addBuffer('icon.png', fs.readFileSync(path.join(__dirname, 'Apple.pass', 'icon.png')));
-        pass.addBuffer('icon@2x.png', fs.readFileSync(path.join(__dirname, 'Apple.pass', 'icon.png'))); // Reusing for now
-        pass.addBuffer('logo.png', fs.readFileSync(path.join(__dirname, 'Apple.pass', 'logo.png')));
-        pass.addBuffer('logo@2x.png', fs.readFileSync(path.join(__dirname, 'Apple.pass', 'logo.png')));
-        pass.addBuffer('strip.png', fs.readFileSync(path.join(__dirname, 'Apple.pass', 'strip.png')));
-        pass.addBuffer('strip@2x.png', fs.readFileSync(path.join(__dirname, 'Apple.pass', 'strip.png')));
+        // IMAGES ARE NOW LOADED AUTOMATICALLY from the 'model' directory (Apple.pass)
+        // pass.addBuffer(...) calls removed to prevent overriding directory contents.
+
 
         const buffer = pass.getAsBuffer();
 
