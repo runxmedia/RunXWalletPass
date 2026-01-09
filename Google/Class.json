@@ -4,14 +4,14 @@
   "programName": "RunX Pass",
   "programLogo": {
     "sourceUri": {
-      "uri": "https://raw.githubusercontent.com/runxmedia/wallet/main/Logo.jpg"
+      "uri": "https://raw.githubusercontent.com/runxmedia/RunXWalletPass/refs/heads/main/GoogleImages/Logo.jpg"
     }
   },
   "reviewStatus": "UNDER_REVIEW",
   "hexBackgroundColor": "#fffbf0",
   "heroImage": {
     "sourceUri": {
-      "uri": "https://raw.githubusercontent.com/runxmedia/wallet/main/Hero.jpg"
+      "uri": "https://raw.githubusercontent.com/runxmedia/RunXWalletPass/refs/heads/main/GoogleImages/Hero.jpg"
     }
   }
 }
