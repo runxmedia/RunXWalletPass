@@ -8,7 +8,7 @@
     }
   },
   "reviewStatus": "UNDER_REVIEW",
-  "hexBackgroundColor": "#333333",
+  "hexBackgroundColor": "#fffbf0",
   "heroImage": {
     "sourceUri": {
       "uri": "https://raw.githubusercontent.com/runxmedia/wallet/main/Hero.jpg"
